@@ -1,33 +1,45 @@
+def gv
+
 pipeline{
     agent any
-    parameters {
+    parameters{
         choice(name:'VERSION',choices:['1.2.0','1.2.1','1.2.3'],description:'')
         booleanParam(name:'executeTests',defaultValue:true,description:'')
-    }
+    }   
        stages {
+        stage("init") {
+            steps {
+                script {
+                    gv = load 'script.groovy'
+                }
+                
+            }
+        }
         stage("build") {
             steps {
-                echo 'building the application..'
-                echo  "building the app version ${params.VERSION}"
+              script  {
+                gv.Buildapp()
+                }
             }
         }
         stage("test") {
-            when {
+            when{
                 expression{
                     params.executeTests
                 }
-
             }
             steps {
-                echo 'Testing the application..'
-                echo  "testing the app version ${params.VERSION}"
+                script {
+                    gv.Testapp()
+                }
             }
         }
         stage("deploy") {
-            steps {
-                echo 'deploying the application'
-                echo  "deploying the app version ${params.VERSION}"
+            steps{
+                script {
+                    gv.Deployapp()
+                }
             }
         }
-    }
+       }
 }
