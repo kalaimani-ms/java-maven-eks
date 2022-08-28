@@ -22,7 +22,7 @@ pipeline{
             }
         }
         stage("test") {
-            when{
+            when {
                 expression{
                     params.executeTests
                 }
@@ -34,14 +34,14 @@ pipeline{
             }
         }
         stage("deploy") {
-            input{
+            input {
                 messege "select the environment to deploy the application"
                 ok "done"
             }
-            parameters{
+            parameters {
                 choice(name:'VERSION',choices:['1.2.0','1.2.1','1.2.3'],description:'')
                 }
-            steps{
+            steps {
                 script {
                     gv.Deployapp()
                 }
