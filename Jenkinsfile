@@ -1,37 +1,32 @@
 pipeline{
     agent any
-    environment{
-        NEW_VERSION = '1.3.0'
-        //server_credentials=credentials(	"kalaimani-ms-git")
-        }
+    parameters {
+        choice(name:'VERSION',choices:['1.2.0','1.2.1','1.2.3'],description:'')
+        booleanParam(name:'executeTests',defaultvalue:'True',description:'')
+    }
        stages {
         stage("build") {
             steps {
                 echo 'building the application..'
-                echo  "building the app version ${NEW_VERSION}"
-                //echo  "building the application with ${server_credentials}"
-                withCredentials([usernamePassword(credentialsId: 'kalaimani-ms-git', passwordVariable: 'PWD', usernameVariable: 'USER')]) {
-                sh 'pwd'
-                }
-
+                echo  "building the app version ${params.VERSION}"
             }
         }
         stage("test") {
             when {
                 expression{
-                    env.BRANCH_NAME=='conditionals'
+                    param.executeTests
                 }
 
             }
             steps {
                 echo 'Testing the application..'
-                echo  "testing the app version ${NEW_VERSION}"
+                echo  "testing the app version ${params.VERSION}"
             }
         }
         stage("deploy") {
             steps {
                 echo 'deploying the application'
-                echo  "deploying the app version ${NEW_VERSION}"
+                echo  "deploying the app version ${params.VERSION}"
             }
         }
     }
