@@ -3,7 +3,8 @@ def gv
 pipeline {
     agent any
     parameters{
-        choice(name:'ONE',choices:['1.2.0','1.2.1','1.2.3'],description:'')
+        choice(name:'VERSION',choices:['1.2.0','1.2.1','1.2.3'],description:'')
+        choice(name:'ONE',choices:['dev','staging','prod'],description:'')
         booleanParam(name:'executeTests',defaultValue:true,description:'')
     }   
        stages {
