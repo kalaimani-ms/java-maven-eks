@@ -1,6 +1,6 @@
 def gv
 
-pipeline{
+pipeline {
     agent any
     parameters{
         booleanParam(name:'executeTests',defaultValue:True,description:'')
@@ -38,12 +38,13 @@ pipeline{
                 messege "select the environment to deploy the application"
                 ok "done"
             parameters {
-                choice(name:'VERSION',choices:['1.2.0','1.2.1','1.2.3'],description:'')
+                choice(name:'ENV',choices:['dev','staging','prod'],description:'')
                 }
             }
             steps {
                 script {
                     gv.Deployapp()
+                    echo "the app is deploying to ${ENV}"
                 }
             }
         }
