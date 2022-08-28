@@ -28,16 +28,5 @@ pipeline{
                 echo  "deploying the app version ${NEW_VERSION}"
             }
         }
-        post {
-            always {
-                echo 'pipeline is monitoring'
-            }
-            failure {
-                echo 'test and deploy got skipped due to previous failure'
-            }
-            success {
-                echo ' build Test Deploy are success'
-        }
-       }
     }
 }
