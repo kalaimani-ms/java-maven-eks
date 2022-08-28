@@ -37,10 +37,10 @@ pipeline{
             input {
                 messege "select the environment to deploy the application"
                 ok "done"
-            }
             parameters {
                 choice(name:'VERSION',choices:['1.2.0','1.2.1','1.2.3'],description:'')
                 }
+            }
             steps {
                 script {
                     gv.Deployapp()
