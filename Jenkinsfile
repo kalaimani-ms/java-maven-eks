@@ -25,7 +25,7 @@ pipeline{
         stage("deploy") {
             steps {
                 echo 'deploying the application'
-                echo  "deploying the app version ${NEW_VERSION}""
+                echo  "deploying the app version ${NEW_VERSION}"
             }
         }
         post {
