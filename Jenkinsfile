@@ -29,6 +29,9 @@ pipeline{
             }
         }
         post {
+            always {
+                echo 'pipeline is monitoring'
+            }
             failure {
                 echo 'test and deploy got skipped due to previous failure'
             }
