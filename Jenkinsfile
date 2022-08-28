@@ -36,4 +36,5 @@ pipeline{
                 echo ' build Test Deploy are success'
         }
        }
+    }
 }
