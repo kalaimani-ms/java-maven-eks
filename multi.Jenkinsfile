@@ -32,7 +32,7 @@ pipeline {
         stage("buildimage") {
             steps {
               script  {
-                buildimage()
+                buildimage 'kalaimanims/mavenapp:1.4'
                 }
             }
         }
