@@ -9,7 +9,7 @@ pipeline {
         stage("init") {
             steps {
                 script {
-                    gv = load 'scriptmaven.groovy'
+                    gv = load 'multiscript.groovy'
                 }
                 
             }
