@@ -29,7 +29,7 @@ pipeline {
             }
             steps {
               script  {
-                gv.Buildjar()
+                buildjar()
                 }
             }
         }
@@ -41,7 +41,7 @@ pipeline {
             }
             steps {
               script  {
-                gv.Buildimage()
+                buidimage()
                 }
             }
         }
