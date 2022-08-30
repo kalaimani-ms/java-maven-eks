@@ -32,7 +32,7 @@ pipeline {
         stage("buildimage") {
             steps {
               script  {
-                buidimage()
+                buildimage()
                 }
             }
         }
