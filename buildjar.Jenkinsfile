@@ -6,6 +6,7 @@ pipeline{
        stages {
         stage("buildJAR") {
             steps {
+                echo 'building the maven application by multiscan webhook trigger'
                 echo 'building the maven application..'
                 sh 'mvn package'
             }
