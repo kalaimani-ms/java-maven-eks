@@ -1,6 +1,7 @@
 def gv
 
 def Testapp() {
+        echo ' testing app by multibranch scan webhook trigger'
         echo "Testing the application branch $BRANCH_NAME.."
         sh 'mvn test'
     }
