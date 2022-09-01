@@ -1,6 +1,7 @@
 def gv
 
 def Buildapp() {
+        echo 'building the application by using github webhook trigger'
         echo 'building the application..'
         echo  "building the app version ${params.VERSION}"
     }
