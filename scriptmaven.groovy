@@ -1,7 +1,7 @@
 def gv
 
 def Buildjar() {
-    echo 'building the applications by github webhook trigger.......'
+    echo 'building the applications by github webhook trigger....haha...'
     echo 'building the maven application..'
     sh 'mvn package'
     }
