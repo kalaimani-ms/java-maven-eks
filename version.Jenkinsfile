@@ -1,65 +1,48 @@
 pipeline {
     agent any
-    tools{
+    tools {
         maven 'Maven'
     }
-       stages {
-        stage("incremental_version") {
+    stages {
+        stage('increment version') {
             steps {
                 script {
-            echo 'incrementing the app version'
-	    sh 'mvn evaluate'
-	    sh 'mvn clean install'
-	    sh 'mvn compile'
-	    sh 'mvn help:evaluate -Dexpression=project.version -q -DforceStdout'
-            sh 'mvn build-helper:parse-version versions:set \
-            -DnewVersion=\\\${parsedVersion.majorVersion}. \
-            \\\${parsedVersion.nextminorVersion}.\\\${parsedVersion.incrementalVersion} \
-            versions:commit '
-            def matcher =readFile('pom.xml') =~ '</version>(.+)<version>'
-            def version = matcher[0][1]
-            env.IMAGE_NAME= "$version-$BUILD_NUMBER"
-            }
-        }
-        }
-        stage("buildJAR") {
-            steps {
-                script {
-                echo 'building the maven application..'
-                sh 'mvn clean package'
+                    echo 'incrementing app version...'
+                    sh 'mvn build-helper:parse-version versions:set \
+                        -DnewVersion=\\\${parsedVersion.majorVersion}.\\\${parsedVersion.minorVersion}.\\\${parsedVersion.nextIncrementalVersion} \
+                        versions:commit'
+                    def matcher = readFile('pom.xml') =~ '<version>(.+)</version>'
+                    def version = matcher[0][1]
+                    env.IMAGE_NAME = "$version-$BUILD_NUMBER"
                 }
             }
         }
-        stage("buildImage") {
-            steps { 
-                script {
-                echo 'building the maven application Image..'
-                withCredentials([usernamePassword(credentialsId: 'kalaimanims-Dockerhub', passwordVariable: 'PASS', usernameVariable: 'USER')]) {
-                sh 'docker images'
-                sh "docker build -t kalaimanims/mavenapp:${IMAGE_NAME} ."
-                sh 'docker images'
-                sh "echo $PASS | docker login -u $USER --password-stdin"
-                sh "docker push kalaimanims/mavenapp:${IMAGE_NAME}"
-                sh 'docker images'
-                }
-}
-                
-            }
-        }
-        stage("test") {
+        stage('build app') {
             steps {
                 script {
-                echo 'Testing the application..'
-                sh 'mvn test'
+                    echo "building the application..."
+                    sh 'mvn clean package'
                 }
             }
         }
-        stage("deploy") {
+        stage('build image') {
             steps {
                 script {
-                echo 'deploying the application'
+                    echo "building the docker image..."
+                    withCredentials([usernamePassword(credentialsId: 'kalaimanims-Dockerhub', passwordVariable: 'PASS', usernameVariable: 'USER')]) {
+                        sh "docker build -t kalaimanims/mavenapp:${IMAGE_NAME} ."
+                        sh "echo $PASS | docker login -u $USER --password-stdin"
+                        sh "docker push kalaimanims/mavenapp:${IMAGE_NAME}"
+                    }
                 }
             }
         }
-       }
+        stage('deploy') {
+            steps {
+                script {
+                    echo 'deploying docker image to EC2...'
+                }
+            }
+        }
+    }
 }
