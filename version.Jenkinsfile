@@ -8,6 +8,7 @@ pipeline {
             steps {
                 script {
             echo 'incrementing the app version'
+	    sh 'mvn clean install'
             sh 'mvn build-helper:parse-version versions:set \
             -DnewVersion=\\\${parsedVersion.majorVersion}. \
             \\\${parsedVersion.minorVersion}.\\\${parsedVersion.nextIncrementalVersion} \
@@ -22,7 +23,6 @@ pipeline {
             steps {
                 script {
                 echo 'building the maven application..'
-                sh 'mvn clean install'
                 sh 'mvn clean package'
                 }
             }
