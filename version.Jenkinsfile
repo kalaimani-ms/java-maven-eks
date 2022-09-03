@@ -5,7 +5,8 @@ pipeline{
     }
        stages {
         stage("incremental_version") {
-            script {
+            steps {
+                script {
             echo 'incrementing the app version'
             sh 'mvn build-helper:parse-Version Versions:set -Dnewversion = ///${parsedVersion.majorVersion}. \
             ${parsedVersion.minorVersion}.${parsedVersion.newIncrementalVersion} \
@@ -15,7 +16,7 @@ pipeline{
             env.IMAGE_NAME= "$version-$BUILD_NUMBER"
             }
         }
-
+        }
         stage("buildJAR") {
             steps {
                 script {
