@@ -10,7 +10,7 @@ pipeline {
             echo 'incrementing the app version'
             sh 'mvn build-helper:parse-version versions:set \
             -DnewVersion=\\\${parsedVersion.majorVersion}. \
-            \\\${parsedVersion.minorVersion}.\\\${parsedVersion.newIncrementalVersion} \
+            \\\${parsedVersion.minorVersion}.\\\${parsedVersion.nextIncrementalVersion} \
             versions:commit '
             def matcher =readFile('pom.xml') =~ '</version>(.+)<version>'
             def version = matcher[0][1]
@@ -22,6 +22,7 @@ pipeline {
             steps {
                 script {
                 echo 'building the maven application..'
+                sh 'mvn clean install'
                 sh 'mvn clean package'
                 }
             }
