@@ -8,9 +8,9 @@ pipeline{
             steps {
                 script {
             echo 'incrementing the app version'
-            sh 'mvn build-helper:parse-Version Versions:set DnewVersion=///${parsedVersion.majorVersion}. \
+            sh 'mvn build-helper:parse-version versions:set DnewVersion=///${parsedVersion.majorVersion}. \
             ///${parsedVersion.minorVersion}.///${parsedVersion.nextIncrementalVersion} \
-            Versions:commit '
+            versions:commit '
             def matcher =readFile('pom.xml') =~ '</version>(.+)<version>'
             def version = matcher[0][1]
             env.IMAGE_NAME= "$version-$BUILD_NUMBER"
