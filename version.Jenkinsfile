@@ -50,7 +50,7 @@ pipeline {
         stage ('commit update from jenkins') {
             steps {
                 script {
-                    withCredentials([usernamePassword(credentialsId: 'kalaimanims-Dockerhub', passwordVariable: 'PASS', usernameVariable: 'USER')]) {
+                    withCredentials([usernamePassword(credentialsId: '	kalaimani-ms-git', passwordVariable: 'PASS', usernameVariable: 'USER')]) {
                         echo 'commit updating to github from Jenkins'
                         sh 'git config --global user.email jenkins@jenkins.com'
                         sh 'git config --global user.name jenkins'
