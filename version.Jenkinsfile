@@ -51,7 +51,7 @@ pipeline {
             steps {
                 script {
                     withCredentials([usernamePassword(credentialsId: 'github-kalai', usernameVariable: 'USER', passwordVariable: 'PASS')]) {
-                        // git config here for the first time run
+                        // git config here for the first time running
                         sh 'git config --global user.email "jenkins@example.com"'
                         sh 'git config --global user.name "jenkins"'
 
