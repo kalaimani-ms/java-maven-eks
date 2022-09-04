@@ -47,21 +47,17 @@ pipeline {
                 }
             }
         }
-        stage ('commit update from jenkins') {
+        stage('commit version update') {
             steps {
                 script {
-                    withCredentials([usernamePassword(credentialsId: 'kalaimani-ms-git', passwordVariable: 'PASS', usernameVariable: 'USER')]) {
-                        echo 'commit updating to github from Jenkins'
-                        sh 'git config --global user.email jenkins@jenkins.com'
-                        sh 'git config --global user.name jenkins'
+                    withCredentials([usernamePassword(credentialsId: 'kalaimani-ms-git', usernameVariable: 'USER', passwordVariable: 'PASS')]) {
+                        // git config here for the first time run
+                        sh 'git config --global user.email "jenkins@example.com"'
+                        sh 'git config --global user.name "jenkins"'
 
-                        sh 'git branch'
-                        sh 'git status'
-                        sh 'git config --list'
-
-                        sh "git remote set-url origin https://${USER}:${PASS}@github.com/kalaimani-ms/java-maven-app.git"
+                        sh "git remote set-url origin https://$USER:$PASS@github.com/kalaimani-ms/java-maven-app.git"
                         sh 'git add .'
-                        sh 'git commit -m "CI: commit bump"'
+                        sh 'git commit -m "ci: version bump"'
                         sh 'git push origin HEAD:jenkins-jobs'
                     }
                     
