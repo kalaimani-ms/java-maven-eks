@@ -30,7 +30,7 @@ pipeline {
                     echo 'building the docker images'
                     sh 'docker images'
                     withCredentials ([usernamePassword(credentialsId: 'kalaimani-ms-Dockerhub',usernameVariable : '$USER',passwordVariable: '$PASS']) {
-                        sh "docker build -t kalaimanims/mavenapp:${IMAGE_NAME}"
+                        sh "docker build -t kalaimanims/mavenapp:${IMAGE_NAME} ."
                         sh "echo $PASS docker login -u $USER --password-stdin"
                         sh "docker push kalaimanims/mavenapp:${IMAGE_NAME}"
                         sh 'docker images'
