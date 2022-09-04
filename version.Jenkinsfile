@@ -43,7 +43,6 @@ pipeline {
         stage ('deployapp') {
             steps {
                 script {
-                    sh 'mvn test'
                     echo 'deploying the app'
                 }
             }
