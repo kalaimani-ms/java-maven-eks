@@ -25,7 +25,7 @@ def Buildimage() {
 
 def Deployapp() {
        echo 'deploying the application'
-       sh 'kubectl apply -f nginx.yaml '
+       sh 'kubectl create deployment nginx-deployment --image=nginx'
     }
 
 return this
