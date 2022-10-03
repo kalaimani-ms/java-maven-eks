@@ -47,11 +47,12 @@ pipeline {
             steps {
                 script {
                     echo 'deploying the java-maven-app to kubernetes cluster from jenkins'
-                    withCredentials([usernamePassword(credentialsId: 'kalaimanims-Dockerhub',usernameVariable : 'USER',passwordVariable: 'PASS')]) {
+                    sh 'envsubst < /var/jenkins_home/workspace/kubernetes/deployment.yaml | kubectl delete -f - '
                     sh 'envsubst < /var/jenkins_home/workspace/kubernetes/deployment.yaml | kubectl apply -f - '
                     sh 'envsubst < /var/jenkins_home/workspace/kubernetes/service.yaml | kubectl apply -f - '
                     sh 'kubectl get pod '
-                    sh 'kubectl get all'
+                    sh 'kubectl get pod '
+                    sh ' kubectl get pod '
                     }
                     
 
@@ -69,7 +70,7 @@ pipeline {
                         sh "git remote set-url origin https://$USER:$PASS@github.com/kalaimani-ms/java-maven-app.git"
                         sh 'git add .'
                         sh 'git commit -m "ci: version bump"'
-                        sh 'git push origin HEAD:eks-cluster-deploy'
+                        sh 'git push origin HEAD:jenkins-jobs'
                     }
                     
                 }
@@ -77,3 +78,4 @@ pipeline {
         }
     }
 }
+
