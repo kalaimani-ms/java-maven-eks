@@ -52,6 +52,7 @@ pipeline {
                     sh 'envsubst < /var/jenkins_home/workspace/kubernetes/deployment.yaml | kubectl apply -f - '
                     sh 'envsubst < /var/jenkins_home/workspace/kubernetes/service.yaml | kubectl apply -f - '
                     sh 'kubectl get pod --watch'
+                    sh 'kubectl get all'
                     }
                     
 
