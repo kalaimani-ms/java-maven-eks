@@ -48,7 +48,6 @@ pipeline {
                 script {
                     echo 'deploying the java-maven-app to kubernetes cluster from jenkins'
                     withCredentials([usernamePassword(credentialsId: 'kalaimanims-Dockerhub',usernameVariable : 'USER',passwordVariable: 'PASS')]) {
-                    sh 'envsubst < /var/jenkins_home/workspace/kubernetes/deployment.yaml | kubectl delete -f - '
                     sh 'envsubst < /var/jenkins_home/workspace/kubernetes/deployment.yaml | kubectl apply -f - '
                     sh 'envsubst < /var/jenkins_home/workspace/kubernetes/service.yaml | kubectl apply -f - '
                     sh 'kubectl get pod --watch'
