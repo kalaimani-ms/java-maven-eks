@@ -5,7 +5,7 @@ pipeline {
         maven 'Maven'
     }
     environment {
-        APP_NAME= 'mavenapp'
+        APP_NAME= 'myapp'
         DOCKER_REPO_SERVER='667122861845.dkr.ecr.us-east-1.amazonaws.com'
         DOCKER_REPO='$DOCKER_REPO_SERVER/mavenapp'
     }
