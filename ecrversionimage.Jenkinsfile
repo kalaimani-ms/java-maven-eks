@@ -7,7 +7,7 @@ pipeline {
     environment {
         APP_NAME= 'myapp'
         DOCKER_REPO_SERVER='667122861845.dkr.ecr.us-east-1.amazonaws.com'
-        DOCKER_REPO='$DOCKER_REPO_SERVER/myapp'
+        DOCKER_REPO="${DOCKER_REPO_SERVER}/myapp"
     }
     stages {
         stage('incremental version') {
@@ -49,6 +49,7 @@ pipeline {
             steps {
                 script {
                     echo 'deploying the java-maven-app to kubernetes cluster from jenkins'
+                    sh 'envsubst < /var/jenkins_home/workspace/kubernetes/deployment.yaml | kubectl delete -f - '
                     sh 'envsubst < /var/jenkins_home/workspace/kubernetes/deployment.yaml | kubectl apply -f - '
                     sh 'envsubst < /var/jenkins_home/workspace/kubernetes/service.yaml | kubectl apply -f - '
                     sh 'kubectl get pod '
