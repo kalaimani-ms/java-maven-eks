@@ -6,7 +6,7 @@ pipeline {
     }
     environment {
         APP_NAME= 'myapp'
-        DOCKER_REPO_SERVER='kalaimanims'
+        DOCKER_REPO_SERVER='https://hub.docker.com/repository/docker/kalaimanims'
         DOCKER_REPO="${DOCKER_REPO_SERVER}/mavenapp"
     }
     stages {
