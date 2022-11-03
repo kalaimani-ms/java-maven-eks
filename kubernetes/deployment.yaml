@@ -18,5 +18,6 @@ spec:
         image: kalaimanims/mavenapp:$IMAGE_NAME
         imagePullPolicy: always
       imagePullSecrets: 
+      - name: my-registry-key
       ports:
         containerPort: 8080
