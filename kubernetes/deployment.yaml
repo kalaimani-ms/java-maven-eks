@@ -9,9 +9,8 @@ spec:
       app: $APP_NAME
   template:
     metadata:
-      name: $APP_NAME
-        labels:
-          app: $APP_NAME
+      labels:
+        app: $APP_NAME
     spec:
       containers:
       - name: $APP_NAME
