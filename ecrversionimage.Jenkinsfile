@@ -6,8 +6,8 @@ pipeline {
     }
     environment {
         APP_NAME= 'myapp'
-        DOCKER_REPO_SERVER='docker.io'
-        DOCKER_REPO="${DOCKER_REPO_SERVER}/myapp"
+        DOCKER_REPO_SERVER='kalaimanims'
+        DOCKER_REPO="${DOCKER_REPO_SERVER}/mavenapp"
     }
     stages {
         stage('incremental version') {
