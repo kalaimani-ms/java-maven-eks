@@ -58,8 +58,8 @@ pipeline {
             steps {
                 script {
                     echo 'deploying the java-maven-app to kubernetes cluster from jenkins'
-                    sh 'envsubst < /var/jenkins_home/workspace/cluster_eks-clus-deploy-docker/kubernetes/deployment.yaml | kubectl apply -f - '
-                    sh 'envsubst < /var/jenkins_home/workspace/cluster_eks-clus-deploy-docker/kubernetes/service.yaml | kubectl apply -f - '
+                    sh 'envsubst < /var/jenkins_home/workspace/cluster_eks-clus_sonar/kubernetes/deployment.yaml | kubectl apply -f - '
+                    sh 'envsubst < /var/jenkins_home/workspace/cluster_eks-clus_sonar/kubernetes/service.yaml | kubectl apply -f - '
                     sh 'kubectl get pod '
                     sh 'kubectl get all'
                 }
@@ -68,7 +68,7 @@ pipeline {
         stage('commit version update') {
             steps {
                 script {
-                    withCredentials([usernamePassword(credentialsId: 'github-kalai', usernameVariable: 'USER', passwordVariable: 'PASS')]) {
+                    withCredentials([usernamePassword(credentialsId: 'kalaimani-ms-git', usernameVariable: 'USER', passwordVariable: 'PASS')]) {
                         // git config here for the first time running
                         sh 'git config --global user.email "jenkins@example.com"'
                         sh 'git config --global user.name "jenkins"'
@@ -76,7 +76,7 @@ pipeline {
                         sh "git remote set-url origin https://$USER:$PASS@github.com/kalaimani-ms/java-maven-app.git"
                         sh 'git add .'
                         sh 'git commit -m "ci: version bump"'
-                        sh 'git push origin HEAD:eks-cluster-deploy'
+                        sh 'git push origin HEAD:eks-clus/sonar'
                     }
                     
                 }
