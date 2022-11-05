@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite tests="1" failures="0" name="AppTest" time="0.012" errors="0" skipped="0">
+<testsuite tests="1" failures="0" name="AppTest" time="0.005" errors="0" skipped="0">
   <properties>
     <property name="java.runtime.name" value="OpenJDK Runtime Environment"/>
     <property name="java.vm.version" value="11.0.16.1+1"/>
     <property name="sun.boot.library.path" value="/opt/java/openjdk/lib"/>
-    <property name="maven.multiModuleProjectDirectory" value="/var/jenkins_home/workspace/rsion-cluster_eks-cluster-deploy"/>
+    <property name="maven.multiModuleProjectDirectory" value="/var/jenkins_home/workspace/cluster_eks-clus_sonar"/>
     <property name="java.vm.vendor" value="Eclipse Adoptium"/>
     <property name="java.vendor.url" value="https://adoptium.net/"/>
     <property name="guice.disable.misplaced.annotation.check" value="true"/>
@@ -13,7 +13,7 @@
     <property name="sun.os.patch.level" value="unknown"/>
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
-    <property name="user.dir" value="/var/jenkins_home/workspace/rsion-cluster_eks-cluster-deploy"/>
+    <property name="user.dir" value="/var/jenkins_home/workspace/cluster_eks-clus_sonar"/>
     <property name="java.vm.compressedOopsMode" value="32-bit"/>
     <property name="java.runtime.version" value="11.0.16.1+1"/>
     <property name="java.awt.graphicsenv" value="sun.awt.X11GraphicsEnvironment"/>
@@ -25,24 +25,27 @@
     <property name="os.name" value="Linux"/>
     <property name="classworlds.conf" value="/var/jenkins_home/tools/hudson.tasks.Maven_MavenInstallation/Maven/bin/m2.conf"/>
     <property name="sun.jnu.encoding" value="UTF-8"/>
+    <property name="sonar.login" value="sqp_5228417a2b64f143711af7cc831a6a98c34fcaf2"/>
     <property name="java.library.path" value="/usr/java/packages/lib:/usr/lib64:/lib64:/lib:/usr/lib"/>
     <property name="maven.conf" value="/var/jenkins_home/tools/hudson.tasks.Maven_MavenInstallation/Maven/conf"/>
     <property name="jdk.debug" value="release"/>
     <property name="java.class.version" value="55.0"/>
     <property name="java.specification.name" value="Java Platform API Specification"/>
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
-    <property name="os.version" value="5.4.0-1085-aws"/>
+    <property name="os.version" value="5.4.0-1088-aws"/>
     <property name="library.jansi.path" value="/var/jenkins_home/tools/hudson.tasks.Maven_MavenInstallation/Maven/lib/jansi-native"/>
     <property name="user.home" value="/var/jenkins_home"/>
     <property name="user.timezone" value="Etc/UTC"/>
     <property name="java.awt.printerjob" value="sun.print.PSPrinterJob"/>
+    <property name="sonar.host.url" value="http://3.239.218.102:9000"/>
     <property name="file.encoding" value="UTF-8"/>
     <property name="java.specification.version" value="11"/>
+    <property name="sonar.projectKey" value="maven-project"/>
     <property name="user.name" value="jenkins"/>
     <property name="java.class.path" value="/var/jenkins_home/tools/hudson.tasks.Maven_MavenInstallation/Maven/boot/plexus-classworlds-2.6.0.jar"/>
     <property name="java.vm.specification.version" value="11"/>
     <property name="sun.arch.data.model" value="64"/>
-    <property name="sun.java.command" value="org.codehaus.plexus.classworlds.launcher.Launcher clean package"/>
+    <property name="sun.java.command" value="org.codehaus.plexus.classworlds.launcher.Launcher clean verify sonar:sonar -Dsonar.projectKey=maven-project -Dsonar.host.url=http://3.239.218.102:9000 -Dsonar.login=sqp_5228417a2b64f143711af7cc831a6a98c34fcaf2"/>
     <property name="java.home" value="/opt/java/openjdk"/>
     <property name="user.language" value="en"/>
     <property name="java.specification.vendor" value="Oracle Corporation"/>
@@ -59,5 +62,5 @@
     <property name="java.vendor.version" value="Temurin-11.0.16.1+1"/>
     <property name="sun.cpu.isalist" value=""/>
   </properties>
-  <testcase classname="AppTest" name="testApp" time="0.012"/>
+  <testcase classname="AppTest" name="testApp" time="0.005"/>
 </testsuite>
