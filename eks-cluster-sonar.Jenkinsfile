@@ -65,7 +65,7 @@ pipeline {
                 }
             }
         }
-        stage('commit version update to Github ') {
+        stage('commit version update to Github Repo ') {
             steps {
                 script {
                     withCredentials([usernamePassword(credentialsId: 'kalaimani-ms-git', usernameVariable: 'USER', passwordVariable: 'PASS')]) {
