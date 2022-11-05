@@ -40,7 +40,7 @@ pipeline {
                 }
             }
         }
-        stage ('buildimage') {
+        stage ('push image to Dockerhub') {
             steps {
                 script {
                     echo 'building the docker images'
@@ -65,7 +65,7 @@ pipeline {
                 }
             }
         }
-        stage('commit version update') {
+        stage('commit version update to Github ') {
             steps {
                 script {
                     withCredentials([usernamePassword(credentialsId: 'kalaimani-ms-git', usernameVariable: 'USER', passwordVariable: 'PASS')]) {
