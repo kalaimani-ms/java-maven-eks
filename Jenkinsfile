@@ -1,30 +1,38 @@
 pipeline{
-    agent any
-        environment {
-            AWS_ACCESS_KEY_ID=credentials('aws-access-key')
-            AWS_SECRET_ACCESS_KEY_ID=credentials('aws-secret-access-key')
-          }    
-       stages {
-        stage("build") {
-            steps {
-                echo 'building the application..'
-                
-            }
+    agent any 
+        tools{
+            maven 'MAVEN'
         }
-        stage("test") {
-            
-            steps {
-                echo 'Testing the application..'
-                echo  'testing the app version ' 
+        stages{
+            stage ("maven_life_cycle"){
+                steps{
+                    script{
+                        sh "mvn validate"
+                        sh "mvn test"
+                        sh "mvn compile"
+                        sh "mvn verify"
+                        sh "mvn install"
+                        }
+                }
             }
-        }    
-        stage("deploy") {
-            steps {
-                echo 'deploying the application'
-                echo  'deploying the app version '
-                sh 'kubectl create deployment nginx-deployment --image=nginx'
-                sh 'kubectl get nodes'
-                sh 'kubectl get pod'
+            stage("sonarqube_analysis"){        
+                        steps{
+                            script{withSonarQubeEnv(credentialsId: 'sonar-id'){
+                                sh 'mvn clean verify sonar:sonar \
+                                    -Dsonar.projectKey=maven-project \
+                                    -Dsonar.host.url=http://3.108.238.160:9000 \
+                                    -Dsonar.login=sqp_25b27fc8dc5db466aa19d99a0407148bc187c8c3'
+                            }
+                        }
+                    }
+            }
+
+            stage("quality gate pass"){
+                steps{
+                    script{withSonarQubeEnv(credentialsId: 'sonar-id'){
+                        waitForQualityGate abortPipeline: false, credentialsId: 'sonar-id'
+                    }
+                }
             }
         }
     }
