@@ -55,4 +55,15 @@ pipeline {
             }
         }
     }
+        stage ('deployapp to k8s') {
+            steps {
+                script {
+                    echo 'deploying the java-maven-app to kubernetes cluster from jenkins'
+                    sh 'envsubst < /var/jenkins_home/workspace/eks-cluster-sonar-jenkins/kubernetes/deployment.yaml | kubectl apply -f - '
+                    sh 'envsubst < /var/jenkins_home/workspace/eks-cluster-sonar-jenkins/kubernetes/service.yaml | kubectl apply -f - '
+                    sh 'kubectl get pod '
+                    sh 'kubectl get all'
+                }
+            }
+        }
 }
