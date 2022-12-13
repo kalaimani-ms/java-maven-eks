@@ -34,8 +34,8 @@ pipeline {
                 script {withSonarQubeEnv(credentialsId: 'sonar') {
                     sh 'mvn clean verify sonar:sonar \
                         -Dsonar.projectKey=maven-project \
-                        -Dsonar.host.url=http://3.239.218.102:9000 \
-                        -Dsonar.login=sqp_5228417a2b64f143711af7cc831a6a98c34fcaf2' 
+                        -Dsonar.host.url=http://65.0.75.211:9000 \
+                        -Dsonar.login=sqp_51bd22a2bfe626d528c15e54fb8018a814dab387' 
                     }
                 }
             }
@@ -54,33 +54,3 @@ pipeline {
                 }
             }
         }
-        stage ('deployapp to k8s') {
-            steps {
-                script {
-                    echo 'deploying the java-maven-app to kubernetes cluster from jenkins'
-                    sh 'envsubst < /var/jenkins_home/workspace/cluster_eks-clus_sonar/kubernetes/deployment.yaml | kubectl apply -f - '
-                    sh 'envsubst < /var/jenkins_home/workspace/cluster_eks-clus_sonar/kubernetes/service.yaml | kubectl apply -f - '
-                    sh 'kubectl get pod '
-                    sh 'kubectl get all'
-                }
-            }
-        }
-        stage('commit version update to Github Repo ') {
-            steps {
-                script {
-                    withCredentials([usernamePassword(credentialsId: 'kalaimani-ms-git', usernameVariable: 'USER', passwordVariable: 'PASS')]) {
-                        //  git config here for the first time running
-                        sh 'git config --global user.email "jenkins@example.com"'
-                        sh 'git config --global user.name "jenkins"'
-
-                        sh "git remote set-url origin https://$USER:$PASS@github.com/kalaimani-ms/java-maven-app.git"
-                        sh 'git add .'
-                        sh 'git commit -m "ci: version bump"'
-                        sh 'git push origin HEAD:eks-clus/sonar'
-                    }
-                    
-                }
-            }
-        }
-    }
-}
