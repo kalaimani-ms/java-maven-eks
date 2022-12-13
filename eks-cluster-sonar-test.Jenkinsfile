@@ -43,7 +43,7 @@ pipeline {
         stage ('push image to Dockerhub') {
             steps {
                 script {
-                    echo 'building the docker imagess'
+                    echo 'building the docker images'
                     sh 'docker images'
                     withCredentials([usernamePassword(credentialsId: 'kalaimanims-Dockerhub',usernameVariable : 'USER',passwordVariable: 'PASS')]) {
                         sh "docker build -t kalaimanims/mavenapp:${IMAGE_NAME} ."
@@ -54,7 +54,6 @@ pipeline {
                 }
             }
         }
-    }
         stage ('deployapp to k8s') {
             steps {
                 script {
@@ -66,4 +65,5 @@ pipeline {
                 }
             }
         }
+    }
 }
