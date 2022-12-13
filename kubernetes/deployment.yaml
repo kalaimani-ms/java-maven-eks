@@ -19,5 +19,5 @@ spec:
         - containerPort: 8080
         imagePullPolicy: Always
       imagePullSecrets: 
-      - name: my-registry-key
+      - name: my-dockerhub-key
       
