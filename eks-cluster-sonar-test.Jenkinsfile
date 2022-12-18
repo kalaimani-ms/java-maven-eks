@@ -8,6 +8,17 @@ pipeline {
         APP_NAME= 'mavenapp'
     }
     stages {
+        stage ('sonarqube analysis'){
+            steps {
+                script {withSonarQubeEnv(credentialsId: 'sonar-id') {
+                    sh 'mvn clean verify sonar:sonar \
+                        -Dsonar.projectKey=new-project \
+                        -Dsonar.host.url=http://3.110.54.87:9000 \
+                        -Dsonar.login=squ_46829241141aefdcfe1f3305ffcaac9be1b6cb1a'
+                    }
+                }
+            }
+        }
         stage('incremental version') {
             steps {
                 script {
@@ -29,17 +40,7 @@ pipeline {
                 }
             }
         }
-        stage ('sonarqube analysis'){
-            steps {
-                script {withSonarQubeEnv(credentialsId: 'sonar-id') {
-                    sh 'mvn clean verify sonar:sonar \
-                        -Dsonar.projectKey=new-project \
-                        -Dsonar.host.url=http://3.110.54.87:9000 \
-                        -Dsonar.login=squ_46829241141aefdcfe1f3305ffcaac9be1b6cb1a'
-                    }
-                }
-            }
-        }
+        
         stage ('push image to Dockerhub') {
             steps {
                 script {
