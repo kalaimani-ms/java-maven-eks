@@ -48,18 +48,19 @@ pipeline {
         stage ('Artifact Upload to Nexus'){
             steps{
                 script{
-                    nexusArtifactUploader artifacts: [[artifactId: 'java-maven-app', 
-                    classifier: '', 
-                    file: 'target/java-maven-app-2.1.8-SNAPSHOT.jar', 
-                    type: 'war']
-                    ], 
-                    credentialsId: 'nexus-id', 
-                    groupId: 'com.example', 
-                    nexusUrl: '3.110.168.3:8081', 
-                    nexusVersion: 'nexus3', 
-                    protocol: 'http', 
-                    repository: 'javaaa-snap', 
-                    version: '2.1.8-SNAPSHOT'
+                    def pomAppVersion = readMavenPom file:'pom.xml'
+                        nexusArtifactUploader artifacts: [[artifactId: 'java-maven-app', 
+                        classifier: '', 
+                        file: "target/java-maven-app-${pomAppVersion.version}.jar", 
+                        type: 'war']
+                        ], 
+                        credentialsId: 'nexus-id', 
+                        groupId: 'com.example', 
+                        nexusUrl: '3.110.168.3:8081', 
+                        nexusVersion: 'nexus3', 
+                        protocol: 'http', 
+                        repository: 'javaaa-snap', 
+                        version: "${pomAppVersion.version}"
                 }
             }
         }  
