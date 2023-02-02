@@ -50,7 +50,7 @@ pipeline {
                 script{
                     nexusArtifactUploader artifacts: [[artifactId: 'java-maven-app', 
                     classifier: '', 
-                    file: 'target/java-maven-app-2.1.8-RELEASE.jar', 
+                    file: 'target/java-maven-app-2.1.8-SNAPSHOT.jar', 
                     type: 'war']
                     ], 
                     credentialsId: 'nexus-id', 
@@ -59,7 +59,7 @@ pipeline {
                     nexusVersion: 'nexus3', 
                     protocol: 'http', 
                     repository: 'javaaa-snap', 
-                    version: '2.1.8-RELEASE'
+                    version: '2.1.8-SNAPSHOT'
                 }
             }
         }  
