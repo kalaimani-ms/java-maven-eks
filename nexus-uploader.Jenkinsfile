@@ -74,8 +74,9 @@ pipeline {
                         sh "echo $PWD | docker login -u $USER --password-stdin"
                         sh "docker push 3.110.168.3:8081/repository/java-maven-docker-images/:${IMAGE_NAME}"
                         sh 'docker images'
+                   }
                 }
-            }
-        }  
-    }   
+            }  
+        }   
+    }
 }
