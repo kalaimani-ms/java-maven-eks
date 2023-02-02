@@ -49,6 +49,7 @@ pipeline {
             steps{
                 script{
                     def pomAppVersion = readMavenPom file:'pom.xml'
+                    def pomAppRepo = pomAppVersion.version.endsWith('SNAPSHOT') ? "javaaa-snap" : "java-maven-releasee"    
                         nexusArtifactUploader artifacts: [[artifactId: 'java-maven-app', 
                         classifier: '', 
                         file: "target/java-maven-app-${pomAppVersion.version}.jar", 
@@ -59,7 +60,7 @@ pipeline {
                         nexusUrl: '3.110.168.3:8081', 
                         nexusVersion: 'nexus3', 
                         protocol: 'http', 
-                        repository: 'javaaa-snap', 
+                        repository: pomAppRepo, 
                         version: "${pomAppVersion.version}"
                 }
             }
