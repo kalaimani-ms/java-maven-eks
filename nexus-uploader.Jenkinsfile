@@ -61,7 +61,7 @@ pipeline {
                     nexusArtifactUploader artifacts: [
                         [artifactId: 'java-maven-app', 
                         classifier: '', 
-                        file: 'target/java-maven-app:1.1.9.jar', 
+                        file: 'target/java-maven-app-1.1.9.jar', 
                         type: 'jar']
                         ], 
                         credentialsId: 'nexus-id', 
