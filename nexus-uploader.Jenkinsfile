@@ -55,6 +55,24 @@ pipeline {
                 }   
             }
         }
-        
+        stage ('Artifact Upload to Nexus'){
+            steps{
+                script{
+                    nexusArtifactUploader artifacts: [
+                        [artifactId: 'java-maven-app', 
+                        classifier: '', 
+                        file: 'target/java-maven-app:1.1.9.jar', 
+                        type: 'jar']
+                        ], 
+                        credentialsId: 'nexus-id', 
+                        groupId: 'com.example', 
+                        nexusUrl: '3.110.168.3:8081', 
+                        nexusVersion: 'nexus3', 
+                        protocol: 'http',
+                        repository: 'java-maven', 
+                        version: '1.1.9'
+                }
+            }
+        }  
     }   
 }
