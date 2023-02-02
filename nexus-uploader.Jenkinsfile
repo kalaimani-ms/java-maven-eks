@@ -49,7 +49,7 @@ pipeline {
             steps{
                 script{
                     def pomAppVersion = readMavenPom : 'pom.xml'
-                    nexusArtifactUploader artifacts: [
+                        nexusArtifactUploader artifacts: [
                         [artifactId: 'java-maven-app', 
                         classifier: '', 
                         file: "target/java-maven-app-${pomAppVersion.version}.jar", 
