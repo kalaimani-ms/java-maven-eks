@@ -7,6 +7,9 @@ pipeline {
     environment {
         APP_NAME= 'mavenapp'
     }
+    options {
+  buildDiscarder logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '', daysToKeepStr: '1', numToKeepStr: '3')
+}
     stages {
         stage ('buidiljar') {
             steps {
@@ -48,7 +51,7 @@ pipeline {
                     nexusArtifactUploader artifacts: [
                         [artifactId: 'java-maven-app', 
                         classifier: '', 
-                        file: 'target/java-maven-app-1.1.9-SNAPSHOT.jar', 
+                        file: 'target/java-maven-app-1.1.8-SNAPSHOT.jar', 
                         type: 'jar']
                         ], 
                         credentialsId: 'nexus-id', 
@@ -57,7 +60,7 @@ pipeline {
                         nexusVersion: 'nexus3', 
                         protocol: 'http',
                         repository: 'java-maven', 
-                        version: '1.1.9'
+                        version: '1.1.8'
                 }
             }
         }  
