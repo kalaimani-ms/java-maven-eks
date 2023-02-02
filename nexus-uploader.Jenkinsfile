@@ -48,10 +48,11 @@ pipeline {
         stage ('Artifact Upload to Nexus'){
             steps{
                 script{
+                    def pomAppVersion = readMavenPom : 'pom.xml'
                     nexusArtifactUploader artifacts: [
                         [artifactId: 'java-maven-app', 
                         classifier: '', 
-                        file: 'target/java-maven-app-1.1.8-SNAPSHOT.jar', 
+                        file: "target/java-maven-app-${pomAppVersion.version}.jar", 
                         type: 'jar']
                         ], 
                         credentialsId: 'nexus-id', 
@@ -60,7 +61,7 @@ pipeline {
                         nexusVersion: 'nexus3', 
                         protocol: 'http',
                         repository: 'java-maven', 
-                        version: '1.1.8-SNAPSHOT'
+                        version: "${pomAppVersion.version}"
                 }
             }
         }  
