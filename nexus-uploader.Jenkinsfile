@@ -8,24 +8,11 @@ pipeline {
         APP_NAME= 'mavenapp'
     }
     stages {
-        stage('incremental version') {
-            steps {
-                script {
-                    echo 'incrementing the app version'
-                    sh 'mvn build-helper:parse-version versions:set \
-                    -DnewVersion=\\\${parsedVersion.majorVersion}.\\\${parsedVersion.minorVersion}.\\\${parsedVersion.nextIncrementalVersion} \
-                    versions:commit'
-                    def matcher = readFile('pom.xml') =~ '<version>([0-9]+\\.[0-9]+\\.[0-9]+-SNAPSHOT))</version>'
-                    def version = matcher[0][1]
-                    env.IMAGE_NAME = "$version-$BUILD_NUMBER"
-                }    
-            }
-        }
         stage ('buidiljar') {
             steps {
                 script {
                     echo 'building the application'
-                    sh 'mvn  package'
+                    sh 'mvn  clean package'
                 }
             }
         }
