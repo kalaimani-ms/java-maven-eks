@@ -50,6 +50,7 @@ pipeline {
                 script{
                     def pomAppVersion = readMavenPom file:'pom.xml'
                     def pomAppRepo = pomAppVersion.version.endsWith('SNAPSHOT') ? "java-maven-snapshot" : "java-maven-release"
+                        env.IMAGE_NAME = "$pomAppVersion.version"
                         nexusArtifactUploader artifacts: [
                         [artifactId: 'java-maven-app', 
                         classifier: '', 
@@ -70,13 +71,13 @@ pipeline {
             steps{
                 script{
                     withCredentials([usernamePassword(credentialsId: 'kalai-nexus',usernameVariable : 'USER',passwordVariable: 'PWD')]) {
-                        sh "docker build -t 3.110.168.3:8081/repository/java-maven-docker-images/:${pomAppVersion.version} ."
+                        sh "docker build -t 3.110.168.3:8081/repository/java-maven-docker-images/:${IMAGE_NAME} ."
                         sh "echo $PWD | docker login -u $USER --password-stdin"
-                        sh "docker push 3.110.168.3:8081/repository/java-maven-docker-images/:${pomAppVersion.version}"
+                        sh "docker push 3.110.168.3:8081/repository/java-maven-docker-images/:${IMAGE_NAME}"
                         sh 'docker images'
                    }
                 }
             }  
         }   
-    }
+}
 }
