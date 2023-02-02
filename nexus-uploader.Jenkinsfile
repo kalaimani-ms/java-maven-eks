@@ -60,7 +60,7 @@ pipeline {
                         nexusVersion: 'nexus3', 
                         protocol: 'http',
                         repository: 'java-maven', 
-                        version: '1.1.8'
+                        version: '1.1.8-SNAPSHOT'
                 }
             }
         }  
