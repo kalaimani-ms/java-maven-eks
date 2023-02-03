@@ -71,10 +71,10 @@ pipeline {
             steps{
                 script{
                     withCredentials([usernamePassword(credentialsId: 'kalai-nexus',usernameVariable : 'USER',passwordVariable: 'PWD')]) {
-                        sh "sudo docker build -t 3.110.168.3:8081/repository/java-maven-docker-images:${IMAGE_NAME} ."
-                        sh "echo $PWD | sudo docker login -u $USER --password-stdin"
-                        sh "sudo docker push 3.110.168.3:8081/repository/java-maven-docker-images:${IMAGE_NAME}"
-                        sh 'sudo docker images'
+                        sh "docker build -t 3.110.168.3:8081/repository/java-maven-docker-images:${IMAGE_NAME} ."
+                        sh "echo $PWD | docker login -u $USER --password-stdin"
+                        sh "docker push 3.110.168.3:8081/repository/java-maven-docker-images:${IMAGE_NAME}"
+                        sh 'docker images'
                    }
                 }
             }  
