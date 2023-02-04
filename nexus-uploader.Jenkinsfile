@@ -49,7 +49,7 @@ pipeline {
             steps{
                 script{
                     def pomAppVersion = readMavenPom file:'pom.xml'
-                    def pomAppRepo = pomAppVersion.version.endsWith('SNAPSHOT') ? "java-maven-snapshot" : "java-maven-release"
+                    def pomAppRepo = pomAppVersion.version.endsWith('SNAPSHOT') ? "java-app-snapshot" : "java-app"
                         env.IMAGE_NAME = "$pomAppVersion.version"
                         nexusArtifactUploader artifacts: [
                         [artifactId: 'java-maven-app', 
@@ -57,7 +57,7 @@ pipeline {
                         file: "target/java-maven-app-${pomAppVersion.version}.jar", 
                         type: 'jar']
                         ], 
-                        credentialsId: 'nexus-id', 
+                        credentialsId: 'nexus-kalai', 
                         groupId: 'com.example', 
                         nexusUrl: '35.154.3.225:8081', 
                         nexusVersion: 'nexus3', 
