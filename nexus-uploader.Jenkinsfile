@@ -21,11 +21,11 @@ pipeline {
         }
         stage ('sonarqube analysis'){
             steps {
-                script {withSonarQubeEnv(credentialsId: 'sonar') {
+                script {withSonarQubeEnv(credentialsId: 'sonar-id') {
                     sh 'mvn clean verify sonar:sonar \
-                        -Dsonar.projectKey=java-maven \
+                        -Dsonar.projectKey=javaapp \
                         -Dsonar.host.url=http://13.235.86.29:9000 \
-                        -Dsonar.login=sqp_0fef8cfe634cbe66ecb4913feafb3e05c6848220' 
+                        -Dsonar.login=sqp_6495177c598f6f0483c5688ea222d9ae7546c66e' 
                     }
                 }
             }
@@ -59,7 +59,7 @@ pipeline {
                         ], 
                         credentialsId: 'nexus-id', 
                         groupId: 'com.example', 
-                        nexusUrl: '3.110.168.3:8081', 
+                        nexusUrl: '35.154.3.225:8081', 
                         nexusVersion: 'nexus3', 
                         protocol: 'http',
                         repository: pomAppRepo, 
@@ -70,7 +70,7 @@ pipeline {
         stage('build and push docker image'){
             steps{
                 script{
-                    withCredentials([usernamePassword(credentialsId: 'kalai-nexus',usernameVariable : 'USER',passwordVariable: 'PWD')]) {
+                    withCredentials([usernamePassword(credentialsId: 'nexus-kalai',usernameVariable : 'USER',passwordVariable: 'PWD')]) {
                         sh "docker build -t 3.110.168.3:8083/repository/java-maven-docker-images:${IMAGE_NAME} ."
                         sh "echo $PWD | docker login -u $USER --password-stdin 3.110.168.3:8083"
                         sh "docker push 3.110.168.3:8083/repository/java-maven-docker-images:${IMAGE_NAME}"
