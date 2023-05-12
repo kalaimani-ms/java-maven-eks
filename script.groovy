@@ -8,12 +8,12 @@ def Buildapp() {
     
 def Testapp() {
         echo 'Testing the application..'
-        echo  "testing the app version ${params.VERSION}"
+        echo  "testing the applli version ${params.VERSION}"
     }
 
 def Deployapp() {
         echo 'deploying the application'
-        echo  "deploying the app version ${params.VERSION}"
+        echo  "deploying the applli version ${params.VERSION}"
     }
 
 return this
